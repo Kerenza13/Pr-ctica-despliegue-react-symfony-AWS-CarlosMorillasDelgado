@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  frontend:
+    container_name: frontendCMD
+    build:
+      context: ./frontend
+      dockerfile: DockerfileFrontendCMD
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - redwebCMD
+
+  backend:
+    container_name: backendCMD
+    build:
+      context: ./backend
+      dockerfile: DockerfileBackendCMD
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    networks:
+      - redwebCMD
+
+  web:
+    container_name: webCMD
+    build:
+      context: ./nginx
+      dockerfile: DockerfileWebCMD
+    ports:
+      - "80:80"
+    networks:
+      - redwebCMD
+
+networks:
+  redwebCMD:
+    driver: bridge
