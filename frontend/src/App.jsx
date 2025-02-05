@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 function App() {
     const [message, setMessage] = useState('');
     useEffect(() => {
-        fetch('/api/')
+        fetch('/api/CMD')
             .then((response) => response.text())
             .then((data) => setMessage(data));
     }, []);
